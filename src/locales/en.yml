@@ -63,3 +63,4 @@ common:
 
 error:
   on-save: "Function handleSave failed. This is completely unexpected behavior as the canvas is always rendered."
+  not-translated: "This page is not available in your language."
