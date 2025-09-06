@@ -1,0 +1,121 @@
+---
+import { LOCALES, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { useTranslator } from "@/lib/i18n";
+
+const locale = Astro.currentLocale as Lang;
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+
+const t = useTranslator(Astro.currentLocale as "en" | "ja");
+---
+
+<Layout>
+  <p>
+    {t("meta.title")}
+    <em>
+      {t("meta.description")}
+    </em>
+  </p>
+
+  <p>
+    <a
+      href={`https://docs.astro.build/${locale}/guides/internationalization/`}
+      target="_blank"
+    >
+      Internationalization (i18n) Routing | Astro Docs
+      <span class="material-icons-sharp dir">open_in_new</span>
+    </a>
+  </p>
+
+  <p>
+    {t("meta.pwa.name")}
+  </p>
+
+  <ul>
+    <li>example.com/en/</li>
+    <li>example.com/ja/</li>
+  </ul>
+
+  <h2>
+    {t("header.title")}
+  </h2>
+
+  <ul>
+    <li>
+      {t("input.save")}
+    </li>
+    <li>
+      {t("input.image-size")}
+    </li>
+    <li>Vanilla CSS</li>
+    <li>
+      {t("input.direct.swaplr")}
+    </li>
+    <li>
+      {t("input.direct.lread")}
+    </li>
+  </ul>
+
+  <h2>
+    {t("common.preview")}
+  </h2>
+
+  <p>
+    {t("common.add")}
+  </p>
+
+  <p>
+    <a href="https://docs.astro.build/" target="_blank">
+      https://docs.astro.build/
+      <span class="material-icons-sharp dir">open_in_new</span>
+    </a>
+  </p>
+
+  <p>
+    {t("error.on-save")}
+  </p>
+
+  <p>
+    <a href={getRelativeLocaleUrl(locale, "setup")} class="start">
+      <span class="material-icons-sharp dir">arrow_forward</span>
+      {t("header.tooltip.share-message")}
+    </a>
+  </p>
+</Layout>
+
+<style>
+  ul {
+    margin-block-start: var(--sp-s);
+    list-style: disc;
+    padding-inline-start: 1em;
+  }
+
+  h2 {
+    color: var(--color-theme);
+    margin-block-start: var(--sp-l);
+  }
+
+  em {
+    display: block;
+    font-style: normal;
+    font-size: 1.3em;
+    margin-block-end: var(--sp-m);
+  }
+
+  .start {
+    display: block;
+    width: fit-content;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background: var(--color-main);
+    color: var(--color-base);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+</style>
