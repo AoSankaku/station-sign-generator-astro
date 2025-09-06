@@ -5,6 +5,7 @@ import { DEFAULT_LOCALE_SETTING, LOCALES_SETTING } from './src/locales';
 import yaml from '@rollup/plugin-yaml';
 
 import react from '@astrojs/react';
+import reactWithStyled from '@/renderer/react-with-styled';
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,6 +29,9 @@ export default defineConfig({
     },
   }), react()],
   vite: {
-    plugins: [yaml()]
-  }
+    plugins: [yaml()],
+    ssr: {
+      noExternal: ['styled-components']
+    }
+  },
 });
