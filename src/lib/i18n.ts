@@ -13,25 +13,39 @@ for (const locale of Object.keys(LOCALES_SETTING)) {
 }
 
 type Locale = keyof typeof translations;
+type Replacements = Record<string, string | number>;
 
 /**
- * Base translator: looks up a key in the given locale.
+ * Base translator: looks up a key in the given locale and optionally replaces placeholders.
+ * Placeholders are in the form {name}, {count}, etc.
  */
-export function t(locale: Locale, key: string): string {
+export function t(locale: Locale, key: string, replacements?: Replacements): string {
   const parts = key.split('.');
-  return parts.reduce<unknown>((obj, part) => {
+  let value = parts.reduce<unknown>((obj, part) => {
     if (typeof obj === 'object' && obj !== null && part in obj) {
       return (obj as Record<string, unknown>)[part];
     }
     return undefined;
   }, translations[locale]) as string;
+
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  if (replacements) {
+    for (const [placeholder, replacementValue] of Object.entries(replacements)) {
+      value = value.replace(new RegExp(`\\{${placeholder}\\}`, 'g'), String(replacementValue));
+    }
+  }
+
+  return value;
 }
 
 /**
  * Creates a translator bound to a specific locale.
  */
 export function useTranslator(locale: Locale) {
-  return (key: string) => t(locale, key);
+  return (key: string, replacements?: Replacements) => t(locale, key, replacements);
 }
 
 /**
@@ -40,15 +54,15 @@ export function useTranslator(locale: Locale) {
 export const tDefault = useTranslator(DEFAULT_LOCALE_SETTING as Locale);
 
 /**
- * NEW: Returns an object with all locales for a given key.
+ * Returns an object with all locales for a given key.
  * Example:
  *   tAll("greeting") =>
  *     { en: "Hello", ja: "こんにちは", ... }
  */
-export function tAll(key: string): Record<Locale, string> {
+export function tAll(key: string, replacements?: Replacements): Record<Locale, string> {
   const result = {} as Record<Locale, string>;
   for (const locale of Object.keys(translations) as Locale[]) {
-    result[locale] = t(locale, key);
+    result[locale] = t(locale, key, replacements);
   }
   return result;
 }
