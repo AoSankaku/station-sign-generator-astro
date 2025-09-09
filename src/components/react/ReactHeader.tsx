@@ -7,6 +7,7 @@ import { type ReactElement, useEffect, useState } from "react";
 import { BsTwitter, BsCopy } from "react-icons/bs";
 import { SiMisskey, SiMastodon, SiLine, SiX, SiReddit } from "react-icons/si";
 import { useTranslator } from "@/lib/i18n";
+// import { getRelativeLocaleUrl } from "astro:i18n";
 
 
 type ReactHeaderProps = {

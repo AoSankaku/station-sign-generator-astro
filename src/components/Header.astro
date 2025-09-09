@@ -5,13 +5,9 @@
 // import { Image } from "astro:assets";
 
 import { type Lang } from "@/i18n";
-import { useTranslator } from "@/lib/i18n";
-import { getRelativeLocaleUrl } from "astro:i18n";
-const t = useTranslator(Astro.currentLocale as "en" | "ja");
+import ReactHeader from "./react/ReactHeader";
 
 const locale = Astro.currentLocale as Lang;
-
-import ReactHeader from "./react/ReactHeader";
 ---
 
 <ReactHeader locale={locale} client:load />
