@@ -16,4 +16,5 @@ export interface LineSummary {
 export interface Line extends LineSummary {
   memo?: string;
   stations: readonly Station[];
+  color: string;
 }

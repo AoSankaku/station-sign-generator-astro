@@ -1,5 +1,5 @@
 import type { UUIDTypes } from "uuid";
-import type { LineSummary } from "./lines";
+import type { Line } from "./lines";
 
 export interface StationNameSet {
   name: {
@@ -18,12 +18,23 @@ export interface StationArea {
   isWhite: boolean;
 }
 
+export interface StationNumber {
+  abbreviation: string;
+  number: string;
+}
+
 export interface Station {
   names: StationNameSet;
-  numbers?: string[];
   threeLetterCode?: string;
-  area?: StationArea[];
+  areaIds?: UUIDTypes[]; // or []
   memo?: string;
   id: UUIDTypes; // uuidv7
-  lines?: LineSummary[];
+
+  // Populated properties (not editable)
+  numbers?: readonly StationNumber[]; // Station Number (e.g. "JY", "28")
+  area?: readonly StationArea[];
+  lines?: readonly Line[];
 }
+
+export type StationEditable = Omit<Station, "numbers" | "area" | "lines">;
+export type StationPopulated = Station;
