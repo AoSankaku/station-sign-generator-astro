@@ -1,4 +1,4 @@
-import { type Station, type StationNameSet } from "./station";
+import { type Station } from "./station";
 import { type RefObject } from "react";
 import type Konva from "konva";
 

@@ -16,6 +16,7 @@ export interface StationArea {
   id: UUIDTypes; // uuidv7
   name: string;
   isWhite: boolean;
+  memo?: string;
 }
 
 export interface StationNumber {
@@ -26,7 +27,7 @@ export interface StationNumber {
 export interface Station {
   names: StationNameSet;
   threeLetterCode?: string;
-  areaIds?: UUIDTypes[]; // or []
+  areaIds?: string[];
   memo?: string;
   id: UUIDTypes; // uuidv7
 
