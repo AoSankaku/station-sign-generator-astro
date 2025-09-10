@@ -1,8 +1,7 @@
 import { type Station } from "./station";
-import { type UUIDTypes } from "uuid";
 
 export interface LineSummary {
-  id: UUIDTypes;
+  id: string;
   formalName: {
     japanese?: string;
     japaneseFurigana?: string;

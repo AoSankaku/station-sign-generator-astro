@@ -1,4 +1,3 @@
-import type { UUIDTypes } from "uuid";
 import type { Line } from "./lines";
 
 export interface StationNameSet {
@@ -13,7 +12,7 @@ export interface StationNameSet {
 }
 
 export interface StationArea {
-  id: UUIDTypes; // uuidv7
+  id: string; // uuidv7
   name: string;
   isWhite: boolean;
   memo?: string;
@@ -29,7 +28,7 @@ export interface Station {
   threeLetterCode?: string;
   areaIds?: string[];
   memo?: string;
-  id: UUIDTypes; // uuidv7
+  id: string; // uuidv7
 
   // Populated properties (not editable)
   numbers?: readonly StationNumber[]; // Station Number (e.g. "JY", "28")
